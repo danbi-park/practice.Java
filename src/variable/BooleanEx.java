@@ -1,21 +1,51 @@
 package variable;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
+import java.sql.SQLOutput;
+
 public class BooleanEx {
-    boolean power = false;
+   boolean power;
+   void turn() {
+       if (power) {
+           power = false;
+       } else {
+           power = true;
+       }
+       System.out.println(this + "전원이" + power + " 되었습니다.");
+   }
+    public static void main(String[] args) {
+        BooleanEx b = new BooleanEx();
+        b.turn();
 
-    void turn() {
-        boolean onOff;
-        onOff = true;
-        power = !power;
-        System.out.println(power);
+        BooleanEx b1 = new BooleanEx();
+        b1.turn();
+        Tv tv = new Tv();
+        tv.turn();
     }
+}
 
-    public static void main(String[] args){
-        BooleanEx b =  new BooleanEx();
-        b.turn();
-        b.turn();
-        b.turn();
-        b.turn();
+class Tv{
+    String model;
+    String maker;
+
+    int channel;
+    boolean power;
+    int volume;
+
+    void turn(){
+        power = power?false:true;
+    }
+    void chanUp(){
+
+    }
+    void chanDown(){
+
+    }
+    void volUp(){
+
+    }
+    void volDown(){
 
     }
 }
