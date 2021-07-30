@@ -1,4 +1,4 @@
-package loop;
+package loop_condition;
 
 public class ForEx {
     public static void main(String[] args) {

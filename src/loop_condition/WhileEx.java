@@ -1,4 +1,4 @@
-package loop;
+package loop_condition;
 
 import java.io.IOException;
 import java.util.Scanner;
