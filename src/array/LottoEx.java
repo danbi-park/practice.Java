@@ -11,7 +11,7 @@ public class LottoEx {
         }
 
         for (int i = 0; i < balls.length; i++) {
-            int rand = (int)(Math.random()*10);
+            int rand = (int)(Math.random()*45);
 
             int temp = balls[i];
             balls[i] = balls[rand];
