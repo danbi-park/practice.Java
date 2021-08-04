@@ -17,6 +17,7 @@ public class Ex20 {
         }
         return max;
     }
+    //
     public static int abs(int value) {
         return value >=0 ? value : -value;
     }
