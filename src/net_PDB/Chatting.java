@@ -41,19 +41,24 @@ public class Chatting {
 
         @Override
         public void run() {
-            String input ="";
-
             try {
                 if (output != null) output.writeUTF(id);
-                do {
-                    input = JOptionPane.showInputDialog("메세지를 입력하세요 (종료는 q입력)");
-                    if (output != null) {
-                        output.writeUTF("[" + id + "]: " + input);
+                while (output != null) {
+                    String tmp = JOptionPane.showInputDialog("메세지를 입력하세요 (종료는 q입력)");
+                if(tmp.equals("Q")){
+                    System.out.println("채팅이 종료됩니다.");
+                    System.exit(-1);
+                }
+                if (tmp != null && tmp.equals("")) {
+                        output.writeUTF("[" + id + "]: " + tmp);
                     }
-                } while (!input.equalsIgnoreCase("Q"));
+                }
             } catch (IOException e) {}
             System.out.println("종료되었습니다");
         }
+
+
+
     }
 
     static class Receiver extends Thread {
