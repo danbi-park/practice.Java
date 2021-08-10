@@ -1,21 +1,22 @@
 package collection;
 
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 public class HashLotto {
     public static void main(String[] args) {
-        HashSet set = new HashSet();
-        for (int i = 0; i < 45; i++) {
-            set.add(i+1);
-        }
+        HashSet lotto = new HashSet();
+        while (lotto.size() < 6) lotto.add((int) (Math.random() * 45) + 1);
 
-        Iterator it = set.iterator();
-        while (it.hasNext()) {
-            System.out.println(it.next());
-        }
+        System.out.println(lotto);
+//    Iterator it = lotto.iterator();
+//    while (it.hasNext()) {
+//      System.out.print(it.next());
+//    }
 
+        //정렬해서 나오게 함
+        List list = new LinkedList(lotto);
+        Collections.sort(list);
+        System.out.println(list);
 
     }
 }
-
