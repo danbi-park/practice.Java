@@ -10,15 +10,17 @@ public class MyFrameEx2 extends BasicFrm{
         new MyFrameEx2(500, 300, "componets");
     }
 
-    private JPanel pnlCenter, pnlSouth;
-    private JLabel lbText, lbImage;//surface를 찍어냄 텍스트
-    private JTextField tfName;
-    private JPasswordField pfPass;
-
-
     public MyFrameEx2(int width, int height, String title) {
         super(width, height, title);
     }
+
+
+    private JPanel pnlCenter, pnlSouth;
+    private JLabel lbText, lbImage;//surface를 찍어냄 텍스트
+    private JTextField tfName;
+
+    private JPasswordField pfPass;
+
 
     @Override
     public void init() {
