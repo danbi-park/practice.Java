@@ -13,8 +13,8 @@ class DaoSetTest {
     void connDB() {
         try {
             assertNotNull(daoSet.connDB());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
