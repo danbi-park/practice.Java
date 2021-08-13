@@ -3,22 +3,21 @@ package swing;
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginBox {
+class LoginFirm {
     public static void main(String[] args) {
         new SheetFrm(550,250,"Login");
     }
 }
 
-
-class LoginFrm extends BasicFrm{
-    public LoginFrm(int width, int height, String title) {
+public class LoginBox extends BasicFrm{
+    public LoginBox(int width, int height, String title) {
         super(width, height, title);
     }
 
 
-
     private JPanel pnlNorth, pnlCenter, pnlSouth;
-    private JLabel lbText, lbImage;
+    private JLabel id;
+    private JLabel pw;
 
     private JTextField tfId;
     private JPasswordField pfPass;
@@ -32,16 +31,9 @@ class LoginFrm extends BasicFrm{
         pnlNorth = new JPanel();
         pnlCenter = new JPanel();
         pnlSouth = new JPanel();
-        lbText = new JLabel("Login");
 
-
-        String imgPath = "src/images/penguin.jpg";
-        ImageIcon icon = new ImageIcon(imgPath);
-        Image img = icon.getImage();
-        Image changedImg = img.getScaledInstance(50,50,Image.SCALE_SMOOTH);
-        ImageIcon icon1 = new ImageIcon(changedImg);
-
-        lbImage = new JLabel(icon1);
+        id = new JLabel("ID");
+        pw = new JLabel("password");
         tfId = new JTextField(10);
         pfPass = new JPasswordField(10);
 
@@ -49,12 +41,15 @@ class LoginFrm extends BasicFrm{
 
     @Override
     public void arrange() {
-        pnlCenter.add(lbText);
-        pnlCenter.add(lbImage);
-        pnlSouth.add(tfId); pnlSouth.add(pfPass);
+        pnlNorth.add(tfId);
+        pnlCenter.add(tfId,pfPass);
+        pnlSouth.add(btnLogin,"로그인");
+        pnlSouth.add(btnSignin,"회원가입");
 
-        add(pnlCenter, "North");
-        add(pnlSouth, "Center");
+
+        add(pnlNorth, "North");
+        add(pnlCenter, "Center");
+        add(pnlSouth, "South");
 
     }
 
