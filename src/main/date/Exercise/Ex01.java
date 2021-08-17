@@ -1,4 +1,4 @@
-package main.date.Exercise;
+package date.Exercise;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

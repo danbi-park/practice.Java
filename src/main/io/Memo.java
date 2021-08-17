@@ -1,8 +1,13 @@
-package swing;
+package io;
+
+import swing.BasicFrm;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,14 +29,14 @@ public class Memo extends BasicFrm {
 
 
     //메뉴 아이템
-    private JMenuItem miNew, miOpen, miSave, miPrint,      //File
+    private JMenuItem miNew, miOpen, miSave, miPrint,     //File
                       miCut, miCopy, miPaste, miTimeDate, //Edit
                       miHelp, miFeedBack, miInfo;         //Help
+
 
     //날짜 설정
     private Object Date = new Date();
     SimpleDateFormat date = new SimpleDateFormat("yyyy년 MM월 dd일 a HH:mm:ss ");
-
 
 
     /* ------------------ text Area ------------------ */
@@ -40,6 +45,10 @@ public class Memo extends BasicFrm {
     private JTextArea ta;
     private JScrollPane scp;
 
+
+    /* ------------------ chooser, saver ------------------ */
+
+    private JFileChooser fc; //file 창 열기
 
     /* ------------------ Button ------------------ */
     private JButton btnSubmit, btnCancel;
@@ -60,18 +69,76 @@ public class Memo extends BasicFrm {
         mnHelp = new JMenu("Help(H)");
         mnHelp.setMnemonic('H'); //alt + H
 
+
+        fc = new JFileChooser();
         //단축키 설정
         miNew = new JMenuItem("New");
         miNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK));
-        miNew.addActionListener( e -> System.out.println("새로만들기"));
+        miNew.addActionListener(e->{
+            ta.setText("");
+        });
+
+
 
         miOpen = new JMenuItem("Open");
         miOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Event.CTRL_MASK));
-        miOpen.addActionListener( e -> System.out.println("열기"));
+        miOpen.addActionListener(e -> {
+            int returnVal = fc.showOpenDialog(this);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+                //실제 파일을 오픈
+                BufferedReader br = null;
+                String fn = fc.getSelectedFile().toString();
+                try {
+                    FileReader fr = new FileReader(fn);
+                    br = new BufferedReader(fr);
+                    StringWriter sw = new StringWriter(); //문자를 담는 변수?
+                    String line = "";
+                    while((line = br.readLine())!=null){
+                        sw.write(line); sw.write('\n');
+                    }
+                    ta.setText(sw.toString());
+                    String tmp = fn.substring(fn.lastIndexOf("\\")+1);// 역슬래시 \\
+                    setTitle(tmp);
+                } catch (FileNotFoundException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            } else {
+                //사용자가 파일을 열지 않음. 취소함
+            }
+        });
+
 
         miSave = new JMenuItem("Save");
         miSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.CTRL_MASK));
-        miSave.addActionListener( e -> System.out.println("저장하기"));
+        miSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int returnVal = fc.showSaveDialog(getParent());
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    //save
+                    BufferedWriter bw = null;
+                    String fn = fc.getSelectedFile().toString();
+                    try {
+                        FileWriter fw = new FileWriter(fc.getSelectedFile().toString());
+                        bw = new BufferedWriter(fw);
+                        bw.write(ta.getText());
+                        setTitle(fn);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    } finally{
+                        try {
+                            if(bw != null) bw.close();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }else{
+                    //cancel
+                }
+            }
+        });
 
         miPrint = new JMenuItem("Print");
         miPrint.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, Event.CTRL_MASK));
@@ -105,6 +172,8 @@ public class Memo extends BasicFrm {
         miInfo = new JMenuItem("Info");
         miInfo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Event.CTRL_MASK));
         miInfo.addActionListener( e -> System.out.println("메모장 정보"));
+
+
 
 
         //옵션 안에 넣기!

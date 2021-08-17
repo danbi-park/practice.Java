@@ -1,4 +1,4 @@
-package main.network;
+package network;
 
 import javax.swing.*;
 import java.io.DataInputStream;

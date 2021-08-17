@@ -1,4 +1,4 @@
-package main.network;
+package network;
 
 import java.net.*;
 import java.io.*;
@@ -9,7 +9,7 @@ public class TcpIpMultichatServer {
 	
 	TcpIpMultichatServer() {
 		clients = new HashMap();
-		Collections.synchronizedMap(clients);
+		Collections.synchronizedMap(clients); //동기화
 	}
 
 	public void start() {

@@ -1,4 +1,4 @@
-package date;
+package main.date;
 
 import javax.swing.*;
 import java.util.Calendar;
